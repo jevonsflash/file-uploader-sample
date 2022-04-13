@@ -1,0 +1,31 @@
+import axios, { CancelTokenSource } from 'axios'
+export const request = async (url: string, methods, data: any, onProgress?: (e)=>void, cancelToken?: CancelTokenSource) => {   
+    let token = null
+    let timeout = 3000;
+    if (cancelToken) {
+        token = cancelToken.token
+        timeout = 0;
+    }
+    const service = axios.create()
+    const re = await service.request({
+        headers: {'Content-Type': 'multipart/form-data'},
+        url: url,
+        method: methods,
+        data: data,
+        cancelToken: token,
+        timeout: timeout,
+        onUploadProgress: function (progressEvent) { //原生获取上传进度的事件
+            if (progressEvent.lengthComputable) {
+                if (onProgress) {
+                    onProgress(progressEvent);
+                }
+            }
+        },
+    })
+    return re as any;
+}
+
+export const getCancelToken = () => {
+    const source = axios.CancelToken.source();
+    return source;
+}
