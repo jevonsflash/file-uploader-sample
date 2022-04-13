@@ -24,6 +24,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/readme", () => { return "Hello world"; });
+app.MapGet("/readme", () => { return "文件上传服务已启动，请post请求至http://localhost:14149/file/upload"; });
 
 app.Run();

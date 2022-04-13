@@ -1,4 +1,4 @@
-# explore-navigation
+# file-uploader
 
 ## Project setup
 ```

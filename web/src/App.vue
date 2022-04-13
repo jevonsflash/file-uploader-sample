@@ -29,13 +29,14 @@
                   </label>
                 </el-col>
                 <el-col :span="4" style="text-align: right">
-                  <el-button
+                  <el-button v-if="parseInt(file.percentage, 10) < 100"
                     type="danger"
                     icon="el-icon-minus"
                     size="mini"
                     circle
                     @click="handleRemove(file)"
                   ></el-button>
+                  <i v-else class="el-icon-finish"></i>
                 </el-col>
                 <el-col :span="24">
                   <label class="file-size">
@@ -123,6 +124,7 @@ export default {
     },
 
     async upload(option) {
+      this.loaded = true;
       var model = new CreateFileDto();
       var file = option.file;
       model.fileName = file.name;
